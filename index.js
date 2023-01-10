@@ -207,3 +207,53 @@ fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/
         console.error(error);
     });
 
+// Probamos la API de https://site.financialmodelingprep.com/developer/docs/api-keys
+const urlFMP = 'https://financialmodelingprep.com/api/v3/stock-screener?marketCapLowerThan=10000000000000&betaMoreThan=1&volumeMoreThan=100&exchange=NASDAQ&apikey=2483627eece04f196c06dc8ebd293e6e'
+fetch(urlFMP)
+    .then((res) => res.json())
+    .then((data) => {
+        let screener = document.getElementById("screener")
+        let screenNames = [];
+        let screenCap = [];
+
+        for (let i = 0; i < 20; i++) {
+            screener.innerHTML += `
+            <td>${data[i].symbol}</td>
+            <td>${data[i].sector} </td>
+            <td>${data[i].industry} </td>
+            <td>${data[i].price} </td>`
+            
+            screenNames[i] = data[i].symbol;
+            screenCap[i] = data[i].marketCap;
+        }
+
+        const clines = document.getElementById('marketCap')
+        new Chart(clines, {
+            type: 'pie',
+            data: {
+                labels: screenNames,
+                datasets: [
+                    {
+                        label: 'Market Cap',
+                        data: screenCap,
+                        borderWidth: 1,
+                        borderColor: 'rgb(43, 5, 139)'
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                    },
+                },
+            },
+        })
+        
+
+    })
+
+    .catch((error) => {
+        console.log(error)
+    })
+
