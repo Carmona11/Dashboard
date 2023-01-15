@@ -191,7 +191,6 @@ function priceReturns(stockDate, stockReturns, stockName) {
 fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
     .then(response => response.json())
     .then(data => {
-        // Aquí puedes hacer lo que necesites con los datos que recibiste
         console.log(data.usd.ada);
         const navPrices = document.getElementById("liveQuotes");
         navPrices.innerHTML = `<p>USD / EUR: ${data.usd.eur}</p>
@@ -222,7 +221,7 @@ fetch(urlFMP)
             <td>${data[i].sector} </td>
             <td>${data[i].industry} </td>
             <td>${data[i].price} </td>`
-            
+
             screenNames[i] = data[i].symbol;
             screenCap[i] = data[i].marketCap;
         }
@@ -237,23 +236,48 @@ fetch(urlFMP)
                         label: 'Market Cap',
                         data: screenCap,
                         borderWidth: 1,
-                        borderColor: 'rgb(43, 5, 139)'
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ]
                     },
                 ],
             },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: false,
-                    },
-                },
-            },
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
         })
-        
+
 
     })
 
     .catch((error) => {
         console.log(error)
     })
-
+    
